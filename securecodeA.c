@@ -29,12 +29,13 @@ int main()
 			word1[i]=getch(co);
 			i++;
 		}
-		j=0;
-		while(getch(ch2)=="%")
+		j=word[0];				//calculate ASCII value of the first alphabet and then start the search accordingly
+		while(getch(ch2)=="%")			//how the keywords alphabet list will end
 		{
+			j=0;
 			while(ch2!=" ")
 			{
-				word2[j]=getch(sr);
+				word2[j]=getch(sr);		//implement dictionary search here
 				j++;
 			}
 		}
