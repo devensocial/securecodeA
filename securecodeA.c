@@ -3,7 +3,7 @@
 #include<stiod.h> //for fgets()
 int main()
 {
-	char word1[10];
+	char word1[100];
 	char word2[10];
 	int choice;
 	int i=0,j,index;
@@ -11,12 +11,16 @@ int main()
 	char ch1,ch2;
 	ch1=NULL;						//for fetching chars
 	FILE *sr;
-	
+	const char EOL = "//0";
+	char *buffer;
+	size_t bufsize = 32;
+	size_t characters;
+	buffer = (char *)malloc(bufsize * sizeof(char));		//dynamic allocation of char for getline
 	printf("What file type you want to scan for analysis?\n1.Java\n2.PHP");
 	scanf("%d",&choice)
 	if (choice == 1)
 	{
-		co = FILE fopen("code.java","r");  //code file
+		co = FILE fopen("code.java","r",stdin);  //code file
 		if (co==NULL)
 		{
 			perror("Error opening file");
@@ -31,7 +35,7 @@ int main()
 	}
 	else
 	{
-		co = FILE fopen("code.php","r");  //code file
+		co = FILE fopen("code.php","r",stdin);  //code file
 		if (co==NULL)
 		{
 			perror("Error opening file");
@@ -47,28 +51,15 @@ int main()
 	
 	while(!feof(co))
 	{
-		i=0;
-		while(ch1!=" ")
+		word1[] = co.getline(&buffer,&bufsize,stdin);
+		if(word1 == "String query = "SELECT * FROM accounts WHERE custID='" + request.getParameter("id") + "'";" || word1 == "Query HQLQuery = session.createQuery("FROM accounts WHERE custID='" + request.getParameter("id") + "'");" || word1 == "http://example.com/app/accountView?id=' or '1'='1" )
 		{
-			word1[i]=getch(co);
-			i++;
+			printf("Your file contains SQL injection vulnerability and may pose threat in later stages of testing, fex fixes can be done by implementing few fixes.");
 		}
-		j=word[0];						//calculate ASCII value of the first alphabet and then start the search accordingly
-		while(getch(ch2)=="%")			//how the keywords alphabet list will end
+		else if(word1 == "sessionid=")		//sessionid exposed
 		{
-			j=0;
-			while(ch2!=" ")
-			{
-				word2[j]=getch(sr);		//implement dictionary search here
-				j++;
-			}
+			printf("You session has been leaked please check for this and this might cause probl;em later in coding.")
 		}
-		if(strcmp(word1,word2))
-		{
-			printf("Your code might have some vulnerability: \n");
-			index=word2[0];				//for seekp to print the report
-			co.seekg(---,ios::beg);
-			getch(co)					//implement seekp
-		}
+		else if(word1 == "")
 	}
 }
