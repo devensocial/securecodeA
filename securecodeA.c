@@ -5,23 +5,47 @@ int main()
 {
 	char word1[10];
 	char word2[10];
+	int choice;
 	int i=0,j,index;
 	FILE *co;
-	co = FILE fopen("code.txt","r");  //code file
-	if (co==NULL)
-	{
-		perror("Error opening file");
-		return(-1);/* code */
-	}
 	char ch1,ch2;
 	ch1=NULL;						//for fetching chars
 	FILE *sr;
-	sr = FILE fopen("source.txt","r");//our file with keywords
-	if (sr==NULL)
+	
+	printf("What file type you want to scan for analysis?\n1.Java\n2.PHP");
+	scanf("%d",&choice)
+	if (choice == 1)
 	{
-		perror("Error opening file");
-		return(-1);/* code */
-	}while(!feof(co))
+		co = FILE fopen("code.java","r");  //code file
+		if (co==NULL)
+		{
+			perror("Error opening file");
+			return(-1);/* code */
+		}
+		sr = FILE fopen("source1.txt","r");//our file with keywords
+		if (sr==NULL)
+			{
+				perror("Error opening file");
+				return(-1);/* code */
+			}
+	}
+	else
+	{
+		co = FILE fopen("code.php","r");  //code file
+		if (co==NULL)
+		{
+			perror("Error opening file");
+			return(-1);/* code */
+		}
+		sr = FILE fopen("source2.txt","r");//our file with keywords
+		if (sr==NULL)
+		{
+			perror("Error opening file");
+			return(-1);/* code */
+		}
+	}
+	
+	while(!feof(co))
 	{
 		i=0;
 		while(ch1!=" ")
@@ -39,11 +63,11 @@ int main()
 				j++;
 			}
 		}
-		if(word1==word2)
+		if(strcmp(word1,word2))
 		{
 			printf("Your code might have some vulnerability: \n");
 			index=word2[0];				//for seekp to print the report
-			fseek( sr, index, SEEK_SET );
+			co.seekg(---,ios::beg);
 			getch(co)					//implement seekp
 		}
 	}
