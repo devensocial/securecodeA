@@ -46,7 +46,7 @@ int main()
 	
 	while(!feof(co))
 	{
-		i++;
+		i=0;
 		while (ch!=" "|| ch!="("){
 		ch=getc(co);
 		word1[i]=ch;
