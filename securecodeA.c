@@ -18,8 +18,8 @@ int* init_array(int size) {
 }
 
 int match() {
-  char* pattern = "abacab";
-  char* text = "bbacbabcbabcbabbabcbabcbacbbbacbacbacbacbacbabacab";
+  char* pattern = "abacab";					//input req string here
+  char* text = "bbacbabcbabcbabbabcbabcbacbbbacbacbacbacbacbabacab";	//getline comes here
 
   int match = kmp(text, pattern);
 
