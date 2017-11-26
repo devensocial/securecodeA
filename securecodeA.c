@@ -17,15 +17,21 @@ int* init_array(int size) {
   return arr;
 }
 
-int match() {
-  char* pattern = "abacab";					//input req string here
-  char* text = "bbacbabcbabcbabbabcbabcbacbbbacbacbacbacbacbabacab";	//getline comes here
+int match(char* text, char* pattern) {				//pattern is what to search and text is whole line.
+  //char* pattern = "abacab";
+  //char* text = "bbacbabcbabcbabbabcbabcbacbbbacbacbacbacbacbabacab";
 
   int match = kmp(text, pattern);
 
-  printf("Match at: %d\n", match);
-
-  return 0;
+  //printf("Match at: %d\n", match);
+  if (match>0)
+  {
+  	return 1;
+  }
+  else
+  {
+  	return 0;
+  }
 }
 
 int kmp(char* t, char* p) {
@@ -84,8 +90,7 @@ void failure(char* p, int* f) {
 
 int main()
 {
-	char word1[255];
-	char word2[10];
+	char* str[255];
 	char ch;
 	int choice;
 	int i=0,j,index;
@@ -96,8 +101,8 @@ int main()
 	scanf("%d",&choice);
 	if (choice == 1)
 	{
-		co = FILE fopen("code.c","r");  //code file
-		if (co==NULL)
+		co = fopen("code.c","r");  //code file
+		if (co == NULL)
 		{
 			perror("Error opening file");
 			return(-1);/* code */                            
@@ -105,101 +110,88 @@ int main()
 	}
 	else
 	{
-		co = FILE fopen("code.php","r");  //code file
-		if (co==NULL)
+		co = fopen("code.php","r");  //code file
+		if (co == NULL)
 		{
 			perror("Error opening file");
 			return(-1);/* code */
 		}
 	}
-	FILE *fp;
-   char str[60];
-
-   /* opening file for reading */
-   fp = fopen("file.txt" , "r");
-   if(fp == NULL) {
-      perror("Error opening file");
-      return(-1);
-   }
-   if( fgets (str, 60, fp)!=NULL ) {
-      /* writing content to stdout */
-      puts(str);
-   }
+   
 	
 	while(!feof(co))
 	{
-		i=0;
-		while (ch!=" "|| ch!="("){
-		ch=getc(co);
-		word1[i]=ch;
-			i++;
-		}
+		if( fgets (str, 255, co)!=NULL ) {
+      /* writing content to stdout */
+      //puts(str);
+   	
 		
 		
-		if(word1 == "String" || word1 == "Query" || word1 == "1'='1" )
-		{
-			printf("\n");
-			printf("Your file contains SQL injection vulnerability and may pose threat in later stages of testing, fex fixes can be done by implementing few fixes.");
-		}
-		else if(strcmp(word1,"gets()")==1)		//sessionid exposed
+		//if(word1 == "String" || word1 == "Query" || word1 == "1'='1" )
+		//{
+		//	printf("\n");
+		//	printf("Your file contains SQL injection vulnerability and may pose threat in later stages of testing, fex fixes can be done by implementing few fixes.");
+		//}
+		if(match(str,"gets()")==1)		//sessionid exposed
 		{
 			printf("\nThis function is vulnerable to BufferOverflow error as in the input, if it recives the input as a pointer, then it couldn't estimate the size of it.\n");
 		}
-		else if(strstr(word1,"preg_replace ")==1)
+		else if(match(str,"preg_replace")==1)
 		{
 			printf("\n0");
 		}
-		else if(strcmp(word1,"sprintf()")==1)
+		else if(match(str,"sprintf()")==1)
 		{
 			printf("\n");
 		}
-		else if( strcmp(word1,"strcpy()")==1 || strcmp(word1,"strcpy")==1 || strcmp(word1,"strcpy(")==1)
+		else if(match(str,"strcpy()")==1 || match(str,"strcpy")==1 || match(str,"strcpy(")==1)
 		{
 			printf("\nYour code might have some vulnerablities and this can better be heal;ed by replacing this function by strncpy().\n");
 		}
-		else if( strcmp(word1,"vsprintf()")==1)
+		else if(match(str,"vsprintf()")==1)
 		{
 			printf("\n");
 		}
-		else if( strcmp(word1,"strcpyA")==1)
+		else if(match(str,"strcpyA")==1)
 		{
 			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
 		}
-		else if( strcmp(word1,"strcpyW")==1)
+		else if(match(str,"strcpyW")==1)
 		{
 			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
 		}
-		else if( strcmp(word1,"StrCpyNA")==1)
+		else if(match(str,"StrCpyNA")==1)
 		{
 			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
 		}
-		else if( strcmp(word1,"StrCpyNW")==1)
+		else if(match(str,"StrCpyNW")==1)
 		{
 			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
 		}
-		else if( strcmp(word1,"StrNCpyA")==1)
+		else if(match(str,"StrNCpyA")==1)
 		{
 			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
 		}
-		else if( strcmp(word1,"StrNCpyW")==1)
+		else if(match(str,"StrNCpyW")==1)
 		{
 			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
 		}
-		else if( strcmp(word1,"StrNCpy")==1)
+		else if(match(str,"StrNCpy")==1)
+		{
+			printf("\nStrNCpyFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
+		}
+		else if(match(str,"strcpynA")==1)
+		{
+			printf("\nstrcpynA appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
+		}
+		else if(match(str,"strcpyn")==1)
 		{
 			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
 		}
-		else if( strcmp(word1,"strcpynA")==1)
-		{
-			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
-		}
-		else if( strcmp(word1,"strcpyn")==1)
-		{
-			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
-		}
-		else if( strcmp(word1,"strcpyn(")==1)
+		else if(match(str,"strcpyn(")==1)
 		{
 			printf("\nFunction appears in Microsoft's banned function list. Can facilitate buffer overflow conditions.");
 		}
 	}
+}
 }
