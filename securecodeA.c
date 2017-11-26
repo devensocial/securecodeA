@@ -90,6 +90,11 @@ void failure(char* p, int* f) {
 
 int main()
 {
+	printf("\nSeCode is an automated code security review tool that handles C and PHP. It has a few features that should hopefully \nmake it useful to anyone conducting code security reviews, particularly where time is at a premium:");
+	printf("\n\n\t\t\t\tNOTE\n\n1. Please note that your code file should either be saved in .PHP or .C type.");
+	printf("\n2. Your code file should be saved in same directory as this code file.");
+	printf("\n3. Your code file should be named as code.c or code.php.");
+	printf("\n4. This file will scan for 15 vulnerabilities that are compiled from various sources.\n\n");
 	char* str[255];
 	char ch;
 	int choice;
@@ -97,7 +102,7 @@ int main()
 	FILE *co;						//for fetching chars
 	//FILE *sr;
 	const char EOL = "/0";
-	printf("What file type you want to scan for analysis?\n1.C\n2.PHP");
+	printf("What file type you want to scan for analysis?\n1.C\n2.PHP\n");
 	scanf("%d",&choice);
 	if (choice == 1)
 	{
@@ -134,7 +139,7 @@ int main()
 		//}
 		if(match(str,"gets()")==1)		//sessionid exposed
 		{
-			printf("\nThis function is vulnerable to BufferOverflow error as in the input, if it recives the input as a pointer, then it couldn't estimate the size of it.\n");
+			printf("\ngets() is vulnerable to BufferOverflow error as in the input, if it recives the input as a pointer, then it couldn't estimate the size of it.\n");
 		}
 		else if(match(str,"preg_replace")==1)
 		{
